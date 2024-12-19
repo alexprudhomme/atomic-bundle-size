@@ -23,19 +23,30 @@ jobs:
         run: npm run build
         working-directory: atomic-playground
 
-      - name: Get bundle size
-        id: bundle-size
+      - name: Get bundle size and versions
+        id: gather-info
         run: |
           # Measure the size of the dist folder
           size=$(du -sb dist | cut -f1)
+
+          # Extract the versions of atomic and headless
+          atomic_version=$(jq -r '.dependencies["@coveo/atomic"] // .devDependencies["@coveo/atomic"]' package.json)
+          headless_version=$(jq -r '.dependencies["@coveo/headless"] // .devDependencies["@coveo/headless"]' package.json)
+
           echo "Bundle Size: $size bytes"
+          echo "Atomic Version: $atomic_version"
+          echo "Headless Version: $headless_version"
+
+          # Set outputs for the next step
           echo "::set-output name=size::$size"
+          echo "::set-output name=atomic_version::$atomic_version"
+          echo "::set-output name=headless_version::$headless_version"
         working-directory: atomic-playground
 
-      - name: Log bundle size to file
+      - name: Log bundle size and versions to file
         run: |
-          # Append the date, version, and bundle size to the log file
-          echo "$(date) - Version: $(git rev-parse --short HEAD) - Bundle Size: ${{ steps.bundle-size.outputs.size }} bytes" >> bundle-sizes.log
+          # Append the date, versions, and bundle size to the log file
+          echo "$(date) - Version: $(git rev-parse --short HEAD) - Atomic: ${{ steps.gather-info.outputs.atomic_version }} - Headless: ${{ steps.gather-info.outputs.headless_version }} - Bundle Size: ${{ steps.gather-info.outputs.size }} bytes" >> bundle-sizes.log
 
       - name: Commit and push bundle size log
         run: |
