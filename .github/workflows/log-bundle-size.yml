@@ -26,7 +26,7 @@ jobs:
       - name: Get bundle size with du -d
         run: |
           # Measure the size of the dist folder
-          size=$(du -d dist | cut -f1)
+          size=$(du -sb dist | cut -f1)
           echo "Bundle Size: $size bytes"
         working-directory: atomic-playground
 
