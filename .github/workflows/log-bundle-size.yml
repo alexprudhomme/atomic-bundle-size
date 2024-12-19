@@ -23,17 +23,19 @@ jobs:
         run: npm run build
         working-directory: atomic-playground
 
-      - name: Get bundle size with du -d
+      - name: Get bundle size
+        id: bundle-size
         run: |
           # Measure the size of the dist folder
           size=$(du -sb dist | cut -f1)
           echo "Bundle Size: $size bytes"
+          echo "::set-output name=size::$size"
         working-directory: atomic-playground
 
       - name: Log bundle size to file
         run: |
           # Append the date, version, and bundle size to the log file
-          echo "$(date) - Version: $(git rev-parse --short HEAD) - Bundle Size: $size bytes" >> bundle-sizes.log
+          echo "$(date) - Version: $(git rev-parse --short HEAD) - Bundle Size: ${{ steps.bundle-size.outputs.size }} bytes" >> bundle-sizes.log
 
       - name: Commit and push bundle size log
         run: |
