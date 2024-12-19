@@ -1,0 +1,43 @@
+name: Log Bundle Size
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  log-size:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: atomic-playground
+
+      - name: Build the project
+        run: npm run build
+        working-directory: atomic-playground
+
+      - name: Get bundle size with du -d
+        run: |
+          # Measure the size of the dist folder
+          size=$(du -d dist | cut -f1)
+          echo "Bundle Size: $size bytes"
+
+      - name: Log bundle size to file
+        run: |
+          # Append the date, version, and bundle size to the log file
+          echo "$(date) - Version: $(git rev-parse --short HEAD) - Bundle Size: $size bytes" >> bundle-sizes.log
+
+      - name: Commit and push bundle size log
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add bundle-sizes.log
+          git commit -m "Update bundle size log"
+          git push
