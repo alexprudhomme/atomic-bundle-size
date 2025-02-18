@@ -3,6 +3,22 @@
   "extends": ["config:recommended"],
   "packageRules": [
     {
+      "groupName": "Vite",
+      "groupSlug": "vite",
+      "matchPackagePatterns": ["^vite", "^@vitejs/"],
+      "lockFileMaintenance": {
+        "enabled": false
+      }
+    },
+    {
+      "groupName": "TypeScript",
+      "groupSlug": "typescript",
+      "matchPackageNames": ["typescript"],
+      "lockFileMaintenance": {
+        "enabled": false
+      }
+    },
+    {
       "groupName": "all dependencies",
       "groupSlug": "all",
       "lockFileMaintenance": {
