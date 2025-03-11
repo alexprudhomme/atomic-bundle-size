@@ -3,17 +3,9 @@
   "extends": ["config:recommended"],
   "packageRules": [
     {
-      "groupName": "Vite",
-      "groupSlug": "vite",
-      "matchPackagePatterns": ["^vite", "^@vitejs/"],
-      "lockFileMaintenance": {
-        "enabled": false
-      }
-    },
-    {
-      "groupName": "TypeScript",
-      "groupSlug": "typescript",
-      "matchPackageNames": ["typescript"],
+      "groupName": "Coveo",
+      "groupSlug": "Coveo",
+      "matchPackagePatterns": ["@coveo/headless", "@coveo/atomic"],
       "lockFileMaintenance": {
         "enabled": false
       }
