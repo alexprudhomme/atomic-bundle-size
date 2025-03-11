@@ -3,20 +3,15 @@
   "extends": ["config:recommended"],
   "packageRules": [
     {
-      "groupName": "Coveo",
-      "groupSlug": "Coveo",
-      "matchPackagePatterns": ["@coveo/headless", "@coveo/atomic"],
-      "lockFileMaintenance": {
-        "enabled": false
-      }
-    },
-    {
       "groupName": "all dependencies",
       "groupSlug": "all",
-      "lockFileMaintenance": {
-        "enabled": false
-      },
       "matchPackageNames": ["*"]
+    },
+    {
+      "groupName": "Coveo",
+      "groupSlug": "Coveo",
+      "rangeStrategy": "replace",
+      "matchPackagePatterns": ["@coveo/headless", "@coveo/atomic"]
     }
   ],
   "schedule": ["before 4am on Monday"]
