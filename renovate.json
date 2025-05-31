@@ -1,18 +1,19 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
+  "automerge": true,
   "packageRules": [
     {
-      "groupName": "all dependencies",
-      "groupSlug": "all",
-      "matchPackageNames": ["*"]
-    },
-    {
+      "matchPackagePatterns": ["^@coveo/headless", "^@coveo/atomic"],
       "groupName": "Coveo",
       "groupSlug": "Coveo",
       "rangeStrategy": "replace",
-      "matchPackageNames": ["/@coveo/headless/", "/@coveo/atomic/"],
       "automerge": true
+    },
+    {
+      "matchPackagePatterns": [".*"],
+      "excludePackagePatterns": ["^@coveo/headless", "^@coveo/atomic"],
+      "enabled": false
     }
   ],
   "schedule": ["before 4am on Monday"]
