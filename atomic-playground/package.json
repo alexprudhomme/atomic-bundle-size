@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@coveo/atomic": "3.60.6",
-    "@coveo/headless": "3.55.1"
+    "@coveo/atomic": "3.60.7",
+    "@coveo/headless": "3.55.2"
   },
   "devDependencies": {
     "typescript": "5.8.3",
