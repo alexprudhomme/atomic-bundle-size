@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@coveo/atomic": "3.60.7",
+    "@coveo/atomic": "3.61.0",
     "@coveo/headless": "3.55.2"
   },
   "devDependencies": {
